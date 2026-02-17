@@ -1,0 +1,7 @@
+Sign in to Heureum by clicking the link below:
+
+{{ magic_link_url }}
+
+Or enter this code manually: {{ code }}
+
+This code expires in 5 minutes. If you did not request this, you can safely ignore this email.

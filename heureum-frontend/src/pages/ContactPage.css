@@ -1,0 +1,85 @@
+/* Copyright (c) 2026 Heureum AI. All rights reserved. */
+
+.contact-page {
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  color: var(--h-text-primary);
+}
+
+.contact-content {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  display: flex;
+  flex-direction: column;
+  background: var(--h-bg-secondary);
+  padding-top: 65px;
+  scrollbar-color: var(--h-border-secondary) transparent;
+}
+
+/* ── Main ── */
+.contact-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 0 0 16px;
+}
+
+.contact-description {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--h-text-faint);
+  margin: 0 0 32px;
+  max-width: 480px;
+}
+
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.contact-email:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .contact-content {
+    padding-top: 57px;
+  }
+
+  .contact-main {
+    padding: 32px 20px;
+  }
+
+  .contact-title {
+    font-size: 28px;
+  }
+
+  .contact-description {
+    font-size: 16px;
+  }
+}

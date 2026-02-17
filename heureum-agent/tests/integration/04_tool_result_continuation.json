@@ -1,0 +1,41 @@
+{
+    "id": "resp_800ad41e5e7443e391f7aef215a1b80a",
+    "object": "response",
+    "created_at": 1770695113,
+    "completed_at": 1770695114,
+    "model": "gpt-4o-mini",
+    "status": "completed",
+    "output": [
+        {
+            "id": "msg_3558b383d5834c12bb56d7b56e76f31a",
+            "type": "message",
+            "role": "assistant",
+            "status": "completed",
+            "content": [
+                {
+                    "type": "output_text",
+                    "text": "피자를 드셨군요! 맛있었겠어요. 다른 점심 메뉴도 있나요?",
+                    "annotations": []
+                }
+            ],
+            "usage": null
+        }
+    ],
+    "usage": {
+        "input_tokens": 1421,
+        "output_tokens": 22,
+        "total_tokens": 1443,
+        "input_tokens_details": {
+            "cached_tokens": 0
+        },
+        "output_tokens_details": {
+            "reasoning_tokens": 0
+        }
+    },
+    "error": null,
+    "metadata": {
+        "session_id": "session_372dc60ad9214c84",
+        "iterations": 1,
+        "tool_call_count": 0
+    }
+}

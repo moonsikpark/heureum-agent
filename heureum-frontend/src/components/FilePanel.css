@@ -1,0 +1,351 @@
+/* Copyright (c) 2026 Heureum AI. All rights reserved. */
+
+/* ── File Panel ── */
+.fp-panel {
+  width: 360px;
+  height: 100%;
+  background: var(--h-bg-secondary);
+  border-left: 1px solid var(--h-border-primary);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.fp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--h-border-primary);
+}
+
+.fp-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--h-text-primary);
+}
+
+.fp-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fp-btn-close {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--h-text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fp-btn-close:hover {
+  background: var(--h-bg-surface);
+  color: var(--h-text-primary);
+}
+
+/* ── Upload zone ── */
+.fp-upload-zone {
+  margin: 12px;
+  padding: 16px;
+  border: 2px dashed var(--h-border-primary);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--h-text-muted);
+  font-size: 13px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.fp-upload-zone:hover,
+.fp-upload-zone.fp-dragging {
+  border-color: var(--h-accent);
+  background: color-mix(in srgb, var(--h-accent) 8%, transparent);
+  color: var(--h-accent);
+}
+
+/* ── File list ── */
+.fp-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.fp-empty {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--h-text-muted);
+  font-size: 13px;
+}
+
+.fp-file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.fp-file-item:hover {
+  background: var(--h-bg-surface);
+}
+
+.fp-file-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+.fp-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.fp-file-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--h-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fp-file-meta {
+  font-size: 11px;
+  color: var(--h-text-muted);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.fp-badge {
+  background: color-mix(in srgb, var(--h-accent) 15%, transparent);
+  color: var(--h-accent);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.fp-file-actions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.fp-file-item:hover .fp-file-actions {
+  opacity: 1;
+}
+
+.fp-btn-icon {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  color: var(--h-text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fp-btn-icon:hover {
+  background: var(--h-bg-surface);
+  color: var(--h-text-primary);
+}
+
+.fp-btn-danger:hover {
+  color: #e54d42;
+}
+
+/* ── Editor ── */
+.fp-editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fp-editor-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--h-border-primary);
+}
+
+.fp-btn-back {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--h-text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fp-btn-back:hover {
+  background: var(--h-bg-surface);
+  color: var(--h-text-primary);
+}
+
+.fp-editor-path {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--h-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fp-btn-save {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--h-accent);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--h-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.fp-btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fp-btn-save:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--h-accent) 12%, transparent);
+}
+
+.fp-editor-textarea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 12px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  background: var(--h-bg-primary);
+  color: var(--h-text-primary);
+  tab-size: 2;
+}
+
+/* ── Toggle button ── */
+.fp-btn-toggle {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--h-border-primary);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--h-text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.fp-btn-toggle:hover {
+  background: var(--h-bg-surface);
+  color: var(--h-text-primary);
+}
+
+/* ── Preview ── */
+.fp-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fp-preview-content {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Markdown preview ── */
+.fp-markdown-preview {
+  width: 100%;
+  align-self: flex-start;
+}
+
+.fp-markdown-preview .ac-markdown {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── Text preview ── */
+.fp-text-preview {
+  width: 100%;
+  align-self: flex-start;
+  margin: 0;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--h-text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.fp-preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* ── HTML preview ── */
+.fp-html-preview {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.fp-preview-info {
+  text-align: center;
+  color: var(--h-text-muted);
+  font-size: 13px;
+}
+
+.fp-preview-info p {
+  margin: 4px 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .fp-panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 30;
+  }
+}

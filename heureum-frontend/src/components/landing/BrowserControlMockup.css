@@ -1,0 +1,356 @@
+/* ── Browser Control Mockup Card ── */
+.bcm-card {
+  background: var(--h-bg-primary);
+  border: 1px solid var(--h-border-primary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--h-shadow-card);
+  width: 100%;
+  max-width: 520px;
+}
+
+/* ── Chrome bar ── */
+.bcm-chrome {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--h-bg-surface);
+  border-bottom: 1px solid var(--h-border-primary);
+}
+
+.bcm-dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.bcm-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.bcm-dot-red    { background: #ff5f57; }
+.bcm-dot-yellow { background: #febc2e; }
+.bcm-dot-green  { background: #28c840; }
+
+.bcm-url-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--h-bg-input);
+  border: 1px solid var(--h-border-subtle);
+  border-radius: 6px;
+  padding: 5px 10px;
+  min-height: 26px;
+}
+
+.bcm-url-text {
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--h-text-muted);
+}
+
+.bcm-url-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: var(--h-accent-primary);
+  margin-left: 1px;
+  animation: bcmCursorBlink 0.8s step-end infinite;
+}
+
+/* ── Page content ── */
+.bcm-page {
+  padding: 20px 18px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  min-height: 180px;
+}
+
+.bcm-page-visible {
+  opacity: 1;
+}
+
+.bcm-page-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--h-text-primary);
+  margin-bottom: 14px;
+}
+
+/* Search row */
+.bcm-search-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.bcm-search-input {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--h-bg-input);
+  border: 1px solid var(--h-border-primary);
+  border-radius: 6px;
+  padding: 7px 10px;
+  min-height: 32px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.bcm-search-text {
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--h-text-muted);
+}
+
+.bcm-typing .bcm-search-text {
+  color: var(--h-text-primary);
+}
+
+.bcm-search-btn {
+  position: relative;
+  padding: 7px 14px;
+  background: var(--h-accent-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+/* Highlight effect */
+.bcm-highlight {
+  border-color: var(--h-accent-primary) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  animation: bcmHighlightPulse 1s ease-in-out infinite;
+}
+
+/* Selector tooltip */
+.bcm-selector-tooltip {
+  position: absolute;
+  top: -28px;
+  left: 8px;
+  background: var(--h-bg-code);
+  color: var(--h-text-code);
+  font-size: 10px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  animation: bcmTooltipIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bcm-selector-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 12px;
+  width: 8px;
+  height: 8px;
+  background: var(--h-bg-code);
+  transform: rotate(45deg);
+}
+
+/* Click ripple */
+.bcm-click-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.3);
+  transform: translate(-50%, -50%) scale(0);
+  animation: bcmRipple 0.6s ease-out;
+}
+
+/* Typing cursor */
+.bcm-type-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background: var(--h-accent-primary);
+  margin-left: 1px;
+  vertical-align: middle;
+  animation: bcmCursorBlink 0.6s step-end infinite;
+}
+
+/* ── Products grid ── */
+.bcm-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.bcm-product {
+  border: 1px solid var(--h-border-subtle);
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
+}
+
+.bcm-product-img {
+  width: 100%;
+  height: 36px;
+  background: var(--h-bg-surface);
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.bcm-product-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--h-text-primary);
+  margin-bottom: 2px;
+}
+
+.bcm-product-price {
+  font-size: 11px;
+  color: var(--h-accent-primary);
+  font-weight: 600;
+}
+
+/* ── Action log ── */
+.bcm-actions {
+  border-top: 1px solid var(--h-border-primary);
+  background: var(--h-bg-surface);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bcm-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+}
+
+.bcm-action-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+.bcm-action-dot-done {
+  background: var(--h-status-success-bg-strong);
+  color: var(--h-status-success);
+}
+
+.bcm-action-dot-active {
+  background: var(--h-status-info-bg-strong);
+  animation: bcmActionPulse 1.2s ease-in-out infinite;
+}
+
+.bcm-action-dot-pending {
+  background: var(--h-bg-surface-hover);
+}
+
+.bcm-action-cmd {
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--h-text-secondary);
+  flex: 1;
+}
+
+.bcm-action-pending .bcm-action-cmd {
+  color: var(--h-text-muted);
+}
+
+.bcm-action-badge {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+}
+
+.bcm-action-badge-done {
+  background: var(--h-status-success-bg);
+  color: var(--h-status-success-text);
+}
+
+.bcm-action-badge-active {
+  background: var(--h-status-info-bg);
+  color: var(--h-status-info-text);
+}
+
+.bcm-action-badge-pending {
+  background: transparent;
+  color: var(--h-text-muted);
+}
+
+/* ── Keyframes ── */
+@keyframes bcmCursorBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+@keyframes bcmHighlightPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); }
+  50%      { box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.1); }
+}
+
+@keyframes bcmRipple {
+  from { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+  to   { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+}
+
+@keyframes bcmTooltipIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bcmActionPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .bcm-page {
+    opacity: 1;
+    transition: none;
+  }
+  .bcm-highlight {
+    animation: none;
+  }
+  .bcm-click-ripple,
+  .bcm-url-cursor,
+  .bcm-type-cursor {
+    animation: none;
+    display: none;
+  }
+  .bcm-action-dot-active {
+    animation: none;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .bcm-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .bcm-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bcm-product:last-child {
+    display: none;
+  }
+}

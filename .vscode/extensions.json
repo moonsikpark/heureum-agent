@@ -1,0 +1,35 @@
+{
+  "recommendations": [
+    // Python
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+
+    // JavaScript/TypeScript
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+
+    // React
+    "dsznajder.es7-react-js-snippets",
+
+    // Build tools
+    "ms-vscode.makefile-tools",
+
+    // Git
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+
+    // General
+    "gruntfuggly.todo-tree",
+    "wayou.vscode-todo-highlight",
+    "aaron-bond.better-comments",
+
+    // Database
+    "mtxr.sqltools",
+
+    // Docker (if needed)
+    "ms-azuretools.vscode-docker"
+  ],
+  "unwantedRecommendations": []
+}

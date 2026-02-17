@@ -1,0 +1,9 @@
+{
+  "name": "heureum-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Heureum monorepo: AI agent system with FastAPI, Django, React, and Electron",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "heureum-mcp"
+version = "0.1.0"
+description = "MCP server for Heureum Agent - provides server-side tools (web search, web fetch, etc.)"
+authors = ["Heureum AI"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+mcp = {extras = ["cli"], version = "^1.26.0"}
+openai = "^1.82.0"
+httpx = "^0.28.0"
+httpcore = "^1.0.0"
+anyio = "^4.0.0"
+readability-lxml = "^0.8.0"
+pydantic-settings = "^2.12.0"
+python-dotenv = "^1.2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.24.0"
+ruff = "^0.11.0"
+mypy = "^1.15.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+disallow_untyped_defs = true

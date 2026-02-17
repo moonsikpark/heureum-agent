@@ -1,0 +1,125 @@
+{
+  "name": "heureum-client",
+  "version": "0.1.0",
+  "description": "Electron desktop client for Heureum Agent - thin shell that loads heureum-frontend",
+  "main": "dist/main/index.js",
+  "author": "Heureum AI",
+  "license": "ISC",
+  "private": true,
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "build:win": "pnpm build && electron-builder --win --publish never",
+    "build:mac": "pnpm build && electron-builder --mac --publish never",
+    "build:linux": "pnpm build && electron-builder --linux --publish never",
+    "release:win": "pnpm build && electron-builder --win --publish always",
+    "release:mac": "pnpm build && electron-builder --mac --publish always",
+    "release:linux": "pnpm build && electron-builder --linux --publish always"
+  },
+  "dependencies": {
+    "@electron-toolkit/preload": "^3.0.0",
+    "electron-updater": "^6.7.0",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.18.1",
+    "electron": "^34.0.0",
+    "electron-builder": "^26.0.0",
+    "electron-vite": "^5.0.0",
+    "typescript": "^5.9.0"
+  },
+  "packageManager": "pnpm@10.26.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "electron-winstaller",
+      "esbuild"
+    ]
+  },
+  "build": {
+    "appId": "com.heureum.client",
+    "productName": "Heureum Agent",
+    "protocols": [
+      {
+        "name": "Heureum",
+        "schemes": [
+          "heureum"
+        ]
+      }
+    ],
+    "directories": {
+      "output": "release/${version}"
+    },
+    "files": [
+      "dist/**/*"
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "moonsikpark",
+      "repo": "heureum-agent",
+      "releaseType": "release"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "resources/icon.png",
+      "category": "public.app-category.developer-tools",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "notarize": false
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "resources/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Heureum Agent"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "resources/icon.png",
+      "category": "Development"
+    }
+  }
+}

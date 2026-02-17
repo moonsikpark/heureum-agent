@@ -1,0 +1,39 @@
+{
+    "id": "resp_dd28aa4a643f4c648d605c56dbe6dd27",
+    "object": "response",
+    "created_at": 1770695111,
+    "completed_at": 1770695112,
+    "model": "gpt-4o-mini",
+    "status": "completed",
+    "output": [
+        {
+            "id": "msg_5e12e574fcc44272877e6ce4cd7de143",
+            "type": "message",
+            "role": "assistant",
+            "status": "completed",
+            "content": [
+                {
+                    "type": "output_text",
+                    "text": "안녕하세요.",
+                    "annotations": []
+                }
+            ],
+            "usage": null
+        }
+    ],
+    "usage": {
+        "input_tokens": 624,
+        "output_tokens": 3,
+        "total_tokens": 627,
+        "input_tokens_details": {
+            "cached_tokens": 0
+        },
+        "output_tokens_details": {
+            "reasoning_tokens": 0
+        }
+    },
+    "error": null,
+    "metadata": {
+        "session_id": "session_02f0242e88474503"
+    }
+}

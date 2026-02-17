@@ -1,0 +1,103 @@
+/* Copyright (c) 2026 Heureum AI. All rights reserved. */
+
+/* ── TODO Progress — Claude Code style ── */
+
+.ac-todo {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  max-width: 85%;
+  font-size: 14px;
+}
+
+.ac-todo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--h-status-success);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.ac-todo-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ac-todo-task {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--h-text-primary);
+  line-height: 1.4;
+}
+
+/* Steps */
+.ac-todo-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.ac-todo-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.ac-todo-step-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-top: 1px;
+}
+
+.ac-todo-step-desc {
+  color: var(--h-text-primary);
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+/* Completed */
+.ac-todo-step-completed .ac-todo-step-icon {
+  color: var(--h-status-success);
+}
+
+.ac-todo-step-completed .ac-todo-step-desc {
+  color: var(--h-text-faint);
+  text-decoration: line-through;
+}
+
+/* In-progress */
+.ac-todo-step-in_progress .ac-todo-step-icon {
+  color: var(--h-status-info);
+  animation: acTodoPulse 1.2s ease-in-out infinite;
+}
+
+/* Pending */
+.ac-todo-step-pending .ac-todo-step-icon {
+  color: var(--h-text-faint);
+}
+
+.ac-todo-step-pending .ac-todo-step-desc {
+  color: var(--h-text-muted);
+}
+
+/* Failed */
+.ac-todo-step-failed .ac-todo-step-icon {
+  color: var(--h-status-error);
+}
+
+.ac-todo-step-failed .ac-todo-step-desc {
+  color: var(--h-status-error);
+}
+
+@keyframes acTodoPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}

@@ -1,0 +1,176 @@
+/* Copyright (c) 2026 Heureum AI. All rights reserved. */
+
+/* ── Bottom-anchored permission panel ── */
+.permission-panel {
+  border-top: 1px solid var(--h-border-primary);
+  background: var(--h-panel-bg);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: panelSlideUp 0.25s ease-out;
+}
+
+.permission-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.permission-panel-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--h-panel-permission);
+  background: var(--h-panel-permission-bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.permission-panel-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--h-text-muted);
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.permission-panel-close:hover {
+  background: var(--h-bg-surface);
+  color: var(--h-text-primary);
+}
+
+.permission-command {
+  background: var(--h-bg-code);
+  color: var(--h-text-code);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0;
+}
+
+.permission-panel-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.permission-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--h-border-primary);
+  border-radius: 8px;
+  background: var(--h-bg-surface);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--h-text-primary);
+  transition: all 0.15s;
+  text-align: left;
+  width: 100%;
+}
+
+.permission-option:hover {
+  border-color: var(--h-border-secondary);
+  background: var(--h-bg-hover, var(--h-bg-surface));
+}
+
+.permission-option-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.permission-option-label {
+  flex: 1;
+}
+
+.permission-option-desc {
+  font-size: 12px;
+  color: var(--h-text-muted);
+  font-weight: 400;
+}
+
+.permission-option.primary {
+  border-color: var(--h-panel-permission-border);
+  background: var(--h-panel-permission-bg);
+}
+
+.permission-option.primary:hover {
+  border-color: var(--h-panel-permission);
+  background: var(--h-panel-permission-hover);
+}
+
+.permission-option.deny {
+  border-color: var(--h-status-error-border);
+}
+
+.permission-option.deny:hover {
+  border-color: var(--h-status-error);
+  background: var(--h-status-error-bg);
+}
+
+.permission-panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2px;
+}
+
+.permission-panel-esc {
+  font-size: 12px;
+  color: var(--h-text-muted);
+}
+
+.permission-panel-esc kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 11px;
+  font-family: inherit;
+  border: 1px solid var(--h-border-primary);
+  border-radius: 4px;
+  background: var(--h-bg-surface);
+  margin-right: 4px;
+}
+
+@keyframes panelSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .permission-panel {
+    padding: 12px 14px;
+  }
+
+  .permission-option {
+    padding: 10px 12px;
+  }
+
+  .permission-command {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,126 @@
+{
+  // Python settings
+  "python.defaultInterpreterPath": "${workspaceFolder}/heureum-agent/.venv/bin/python",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/heureum-agent",
+    "${workspaceFolder}/heureum-platform"
+  ],
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.formatting.provider": "black",
+  "python.testing.pytestEnabled": true,
+
+  // TypeScript/JavaScript settings
+  "typescript.tsdk": "heureum-frontend/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "javascript.format.enable": true,
+  "typescript.format.enable": true,
+
+  // ESLint settings
+  "eslint.workingDirectories": [
+    "heureum-frontend",
+    "heureum-client"
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // Editor settings
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.rulers": [
+    88,
+    120
+  ],
+
+  // Files settings
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/dist": true,
+    "**/out": true,
+    "**/.vite": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.venv/**": true,
+    "**/dist/**": true,
+    "**/out/**": true
+  },
+
+  // Search settings
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/out": true,
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+
+  // Multi-root workspace settings
+  "folders": [
+    {
+      "name": "Root",
+      "path": "."
+    },
+    {
+      "name": "Agent (FastAPI)",
+      "path": "heureum-agent"
+    },
+    {
+      "name": "Platform (Django)",
+      "path": "heureum-platform"
+    },
+    {
+      "name": "Frontend (React)",
+      "path": "heureum-frontend"
+    },
+    {
+      "name": "Client (Electron)",
+      "path": "heureum-client"
+    }
+  ],
+
+  // Terminal settings
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "terminal.integrated.env.osx": {
+    "PYTHONPATH": "${workspaceFolder}/heureum-agent:${workspaceFolder}/heureum-platform"
+  },
+
+  // Git settings
+  "git.ignoreLimitWarning": true,
+
+  // File associations
+  "files.associations": {
+    "*.css": "css",
+    "Makefile": "makefile",
+    ".env.example": "dotenv"
+  },
+
+  // Recommended extensions
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.makefile-tools",
+    "mhutchie.git-graph"
+  ]
+}

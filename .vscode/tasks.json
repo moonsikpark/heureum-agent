@@ -1,0 +1,220 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Frontend Dev Server",
+      "type": "shell",
+      "command": "pnpm dev",
+      "options": {
+        "cwd": "${workspaceFolder}/heureum-frontend"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^.*$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE.*ready in",
+          "endsPattern": "Local:.*http://localhost:5173"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "dev-servers"
+      }
+    },
+    {
+      "label": "Build Electron Client",
+      "type": "shell",
+      "command": "pnpm run build",
+      "options": {
+        "cwd": "${workspaceFolder}/heureum-client"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "build"
+      }
+    },
+    {
+      "label": "Start Agent Service",
+      "type": "shell",
+      "command": "poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+      "options": {
+        "cwd": "${workspaceFolder}/heureum-agent"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^.*$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Started server process",
+          "endsPattern": "Application startup complete"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "dev-servers"
+      }
+    },
+    {
+      "label": "Start Platform Service",
+      "type": "shell",
+      "command": "poetry run python manage.py runserver 8001",
+      "options": {
+        "cwd": "${workspaceFolder}/heureum-platform"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^.*$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Performing system checks",
+          "endsPattern": "Starting development server at"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "dev-servers"
+      }
+    },
+    {
+      "label": "Start Periodic Task Runner",
+      "type": "shell",
+      "command": "poetry run python manage.py run_periodic_tasks_loop",
+      "options": {
+        "cwd": "${workspaceFolder}/heureum-platform"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^.*$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Periodic task runner started",
+          "endsPattern": "No due tasks"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "dev-servers"
+      }
+    },
+    {
+      "label": "Start All Services",
+      "dependsOn": [
+        "Start Agent Service",
+        "Start Platform Service",
+        "Start Periodic Task Runner",
+        "Start Frontend Dev Server"
+      ],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Stop All Services",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/stop-all.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Force Kill All Services",
+      "type": "shell",
+      "command": "lsof -ti:8000,8001,5173 | xargs kill -9 2>/dev/null || true; pkill -9 -f 'uvicorn|manage.py runserver|vite|electron' 2>/dev/null || true; echo 'All services force killed'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Install All Dependencies",
+      "type": "shell",
+      "command": "make install",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "install"
+      }
+    },
+    {
+      "label": "Build All Projects",
+      "type": "shell",
+      "command": "make build-all",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "build"
+      }
+    },
+    {
+      "label": "Run Tests",
+      "type": "shell",
+      "command": "make test-all",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "test"
+      }
+    },
+    {
+      "label": "Lint All Projects",
+      "type": "shell",
+      "command": "make lint-all",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "lint"
+      }
+    }
+  ]
+}

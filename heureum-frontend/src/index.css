@@ -1,0 +1,370 @@
+/* Copyright (c) 2026 Heureum AI. All rights reserved. */
+
+/* ── Theme variables ── */
+:root {
+  /* Backgrounds */
+  --h-bg-primary: #fdfcf9;
+  --h-bg-secondary: #f7f5f0;
+  --h-bg-surface: #f3f1ec;
+  --h-bg-surface-hover: #edeae4;
+  --h-bg-input: #fdfcf9;
+  --h-bg-input-disabled: #f5f3ee;
+  --h-bg-code: #1e293b;
+  --h-bg-overlay: rgba(0, 0, 0, 0.5);
+  --h-bg-nav: rgba(253, 252, 249, 0.85);
+
+  /* Text */
+  --h-text-primary: #1e293b;
+  --h-text-secondary: #374151;
+  --h-text-tertiary: #495057;
+  --h-text-muted: #6b7280;
+  --h-text-faint: #9ca3af;
+  --h-text-on-accent: #ffffff;
+  --h-text-code: #e2e8f0;
+
+  /* Borders */
+  --h-border-primary: #e8e5df;
+  --h-border-secondary: #cdc9c2;
+  --h-border-tertiary: #e3dfd8;
+  --h-border-focus: #667eea;
+  --h-border-subtle: rgba(0, 0, 0, 0.06);
+
+  /* Brand accent (same both themes) */
+  --h-accent-primary: #6366f1;
+  --h-accent-secondary: #4f46e5;
+  --h-accent-light: #818cf8;
+  --h-accent-lavender: #a78bfa;
+  --h-accent-purple: #7c3aed;
+
+  /* Brand gradient (same both themes) */
+  --h-gradient-brand: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* Status – success */
+  --h-status-success: #22c55e;
+  --h-status-success-text: #166534;
+  --h-status-success-bg: #f0fdf4;
+  --h-status-success-bg-strong: #dcfce7;
+  --h-status-success-border: #86efac;
+
+  /* Status – info */
+  --h-status-info: #3b82f6;
+  --h-status-info-text: #1d4ed8;
+  --h-status-info-bg: #eff6ff;
+  --h-status-info-bg-strong: #dbeafe;
+  --h-status-info-border: #60a5fa;
+
+  /* Status – error */
+  --h-status-error: #dc2626;
+  --h-status-error-text: #991b1b;
+  --h-status-error-bg: #fef2f2;
+  --h-status-error-bg-strong: #fee2e2;
+  --h-status-error-border: #fca5a5;
+
+  /* Panel – permission (amber) */
+  --h-panel-permission: #d97706;
+  --h-panel-permission-bg: rgba(217, 119, 6, 0.08);
+  --h-panel-permission-border: rgba(217, 119, 6, 0.25);
+  --h-panel-permission-hover: rgba(217, 119, 6, 0.12);
+
+  /* Panel – question (indigo) */
+  --h-panel-question: #6366f1;
+  --h-panel-question-bg: rgba(99, 102, 241, 0.08);
+  --h-panel-question-border: rgba(99, 102, 241, 0.25);
+  --h-panel-question-hover: rgba(99, 102, 241, 0.12);
+
+  /* Panel shared */
+  --h-panel-bg: #f3f1ec;
+  --h-user-msg-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* Components */
+  --h-question-bg: #faf5ff;
+  --h-question-choice-bg: #fdfcf9;
+  --h-question-choice-hover-bg: #f5f3ff;
+  --h-question-choice-selected-bg: #ede9fe;
+  --h-shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --h-shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+  /* Working directory button */
+  --h-wdir-bg: #e8e5df;
+  --h-wdir-border: #cdc9c2;
+  --h-wdir-bg-hover: #ddd9d3;
+  --h-wdir-border-hover: #b5b0a8;
+  --h-wdir-set-color: #1d4ed8;
+  --h-wdir-set-bg: #eff6ff;
+  --h-wdir-set-border: #bfdbfe;
+  --h-wdir-set-bg-hover: #dbeafe;
+  --h-wdir-set-border-hover: #93c5fd;
+
+  /* Blue buttons */
+  --h-btn-blue: #1d4ed8;
+  --h-btn-blue-hover: #1e40af;
+  --h-btn-blue-disabled: #93c5fd;
+
+  /* Error message bar */
+  --h-error-bg: #fee;
+  --h-error-text: #c33;
+  --h-error-border: #fcc;
+
+  /* Login error */
+  --h-login-error-bg: rgba(239, 68, 68, 0.1);
+  --h-login-error-border: rgba(239, 68, 68, 0.3);
+  --h-login-error-text: #dc2626;
+
+  /* Nav CTA */
+  --h-nav-cta-bg: rgba(99, 102, 241, 0.1);
+  --h-nav-cta-color: #6366f1;
+  --h-nav-cta-border: rgba(99, 102, 241, 0.25);
+  --h-nav-cta-bg-hover: rgba(99, 102, 241, 0.18);
+  --h-nav-cta-border-hover: rgba(99, 102, 241, 0.4);
+
+  /* Chat preview */
+  --h-preview-bg: #f3f1ec;
+  --h-preview-bar-bg: rgba(0, 0, 0, 0.02);
+  --h-preview-bar-border: rgba(0, 0, 0, 0.06);
+  --h-preview-dot: rgba(0, 0, 0, 0.1);
+  --h-preview-ai-bg: rgba(0, 0, 0, 0.04);
+  --h-preview-ai-color: #374151;
+  --h-preview-input-bg: rgba(0, 0, 0, 0.02);
+  --h-preview-input-border: rgba(0, 0, 0, 0.08);
+  --h-preview-input-color: #9ca3af;
+
+  /* Social button */
+  --h-social-bg: rgba(0, 0, 0, 0.03);
+  --h-social-border: rgba(0, 0, 0, 0.1);
+  --h-social-color: #374151;
+  --h-social-bg-hover: rgba(0, 0, 0, 0.06);
+  --h-social-border-hover: rgba(0, 0, 0, 0.18);
+
+  /* Login */
+  --h-login-label: #374151;
+  --h-login-info: #6b7280;
+  --h-login-info-strong: #1e293b;
+  --h-login-input-bg: #f5f3ee;
+  --h-login-input-border: #cdc9c2;
+  --h-login-input-color: #1e293b;
+  --h-login-divider: rgba(0, 0, 0, 0.1);
+  --h-login-divider-text: #9ca3af;
+  --h-login-link-color: #6366f1;
+}
+
+[data-theme="dark"] {
+  /* Backgrounds */
+  --h-bg-primary: #1e1e1e;
+  --h-bg-secondary: #141414;
+  --h-bg-surface: #2a2a2a;
+  --h-bg-surface-hover: #333333;
+  --h-bg-input: #181818;
+  --h-bg-input-disabled: #222222;
+  --h-bg-code: #141414;
+  --h-bg-overlay: rgba(0, 0, 0, 0.7);
+  --h-bg-nav: rgba(20, 20, 20, 0.85);
+
+  /* Text */
+  --h-text-primary: #f3f4f6;
+  --h-text-secondary: #e5e7eb;
+  --h-text-tertiary: #d1d5db;
+  --h-text-muted: #9ca3af;
+  --h-text-faint: #6b7280;
+  --h-text-on-accent: #ffffff;
+  --h-text-code: #e2e8f0;
+
+  /* Borders */
+  --h-border-primary: rgba(255, 255, 255, 0.1);
+  --h-border-secondary: rgba(255, 255, 255, 0.15);
+  --h-border-tertiary: rgba(255, 255, 255, 0.08);
+  --h-border-focus: #6366f1;
+  --h-border-subtle: rgba(255, 255, 255, 0.06);
+
+  /* Status – success */
+  --h-status-success-text: #86efac;
+  --h-status-success-bg: rgba(34, 197, 94, 0.1);
+  --h-status-success-bg-strong: rgba(34, 197, 94, 0.2);
+  --h-status-success-border: rgba(34, 197, 94, 0.4);
+
+  /* Status – info */
+  --h-status-info-text: #93c5fd;
+  --h-status-info-bg: rgba(59, 130, 246, 0.1);
+  --h-status-info-bg-strong: rgba(59, 130, 246, 0.2);
+  --h-status-info-border: rgba(59, 130, 246, 0.4);
+
+  /* Status – error */
+  --h-status-error-text: #fca5a5;
+  --h-status-error-bg: rgba(220, 38, 38, 0.1);
+  --h-status-error-bg-strong: rgba(220, 38, 38, 0.2);
+  --h-status-error-border: rgba(220, 38, 38, 0.3);
+
+  /* Panel – permission (amber) */
+  --h-panel-permission: #fbbf24;
+  --h-panel-permission-bg: rgba(251, 191, 36, 0.1);
+  --h-panel-permission-border: rgba(251, 191, 36, 0.3);
+  --h-panel-permission-hover: rgba(251, 191, 36, 0.15);
+
+  /* Panel – question (indigo) */
+  --h-panel-question: #818cf8;
+  --h-panel-question-bg: rgba(129, 140, 248, 0.1);
+  --h-panel-question-border: rgba(129, 140, 248, 0.3);
+  --h-panel-question-hover: rgba(129, 140, 248, 0.15);
+
+  /* Panel shared */
+  --h-panel-bg: #2a2a2a;
+  --h-user-msg-bg: linear-gradient(135deg, #7c8cf5 0%, #8b5fbf 100%);
+
+  /* Components */
+  --h-question-bg: rgba(99, 102, 241, 0.08);
+  --h-question-choice-bg: rgba(255, 255, 255, 0.05);
+  --h-question-choice-hover-bg: rgba(99, 102, 241, 0.12);
+  --h-question-choice-selected-bg: rgba(99, 102, 241, 0.2);
+  --h-shadow-card: 0 2px 12px rgba(0, 0, 0, 0.3);
+  --h-shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  /* Working directory button */
+  --h-wdir-bg: rgba(255, 255, 255, 0.05);
+  --h-wdir-border: rgba(255, 255, 255, 0.1);
+  --h-wdir-bg-hover: rgba(255, 255, 255, 0.08);
+  --h-wdir-border-hover: rgba(255, 255, 255, 0.2);
+  --h-wdir-set-color: #818cf8;
+  --h-wdir-set-bg: rgba(99, 102, 241, 0.1);
+  --h-wdir-set-border: rgba(99, 102, 241, 0.3);
+  --h-wdir-set-bg-hover: rgba(99, 102, 241, 0.15);
+  --h-wdir-set-border-hover: rgba(99, 102, 241, 0.4);
+
+  /* Blue buttons */
+  --h-btn-blue: #6366f1;
+  --h-btn-blue-hover: #4f46e5;
+  --h-btn-blue-disabled: rgba(99, 102, 241, 0.4);
+
+  /* Error message bar */
+  --h-error-bg: rgba(220, 38, 38, 0.1);
+  --h-error-text: #fca5a5;
+  --h-error-border: rgba(220, 38, 38, 0.3);
+
+  /* Login error */
+  --h-login-error-bg: rgba(239, 68, 68, 0.1);
+  --h-login-error-border: rgba(239, 68, 68, 0.3);
+  --h-login-error-text: #f87171;
+
+  /* Nav CTA */
+  --h-nav-cta-bg: rgba(99, 102, 241, 0.15);
+  --h-nav-cta-color: #818cf8;
+  --h-nav-cta-border: rgba(99, 102, 241, 0.3);
+  --h-nav-cta-bg-hover: rgba(99, 102, 241, 0.25);
+  --h-nav-cta-border-hover: rgba(99, 102, 241, 0.5);
+
+  /* Chat preview */
+  --h-preview-bg: #1e1e1e;
+  --h-preview-bar-bg: rgba(255, 255, 255, 0.03);
+  --h-preview-bar-border: rgba(255, 255, 255, 0.06);
+  --h-preview-dot: rgba(255, 255, 255, 0.12);
+  --h-preview-ai-bg: rgba(255, 255, 255, 0.05);
+  --h-preview-ai-color: #d1d5db;
+  --h-preview-input-bg: rgba(255, 255, 255, 0.03);
+  --h-preview-input-border: rgba(255, 255, 255, 0.08);
+  --h-preview-input-color: #4b5563;
+
+  /* Social button */
+  --h-social-bg: rgba(255, 255, 255, 0.05);
+  --h-social-border: rgba(255, 255, 255, 0.1);
+  --h-social-color: #d1d5db;
+  --h-social-bg-hover: rgba(255, 255, 255, 0.08);
+  --h-social-border-hover: rgba(255, 255, 255, 0.2);
+
+  /* Login */
+  --h-login-label: #d1d5db;
+  --h-login-info: #9ca3af;
+  --h-login-info-strong: #e5e7eb;
+  --h-login-input-bg: #181818;
+  --h-login-input-border: rgba(255, 255, 255, 0.1);
+  --h-login-input-color: #f3f4f6;
+  --h-login-divider: rgba(255, 255, 255, 0.1);
+  --h-login-divider-text: #6b7280;
+  --h-login-link-color: #818cf8;
+}
+
+/* ── Global transition for theme switching ── */
+*,
+*::before,
+*::after {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+/* ── Reset ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Theme toggle ── */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--h-border-primary);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--h-text-primary);
+}
+
+.theme-toggle:hover {
+  background: var(--h-bg-surface);
+  border-color: var(--h-border-secondary);
+}
+
+/* ── Scrollbar ── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*:hover {
+  scrollbar-color: var(--h-text-faint) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background: var(--h-text-faint);
+}
+
+/* ── Loading screen ── */
+.loading-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--h-bg-secondary);
+  color: var(--h-text-faint);
+}

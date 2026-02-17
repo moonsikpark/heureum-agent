@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heureum-agent
+  namespace: heureum
+  labels:
+    app: heureum-agent
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: heureum-agent
+  template:
+    metadata:
+      labels:
+        app: heureum-agent
+    spec:
+      imagePullSecrets:
+        - name: acr-secret
+      containers:
+        - name: agent
+          image: IMAGE_PLACEHOLDER
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: OPENAI_API_KEY
+            - name: AGENT_MODEL
+              value: "gpt-4o-mini"
+            - name: AGENT_TEMPERATURE
+              value: "0.7"
+            - name: AGENT_MAX_TOKENS
+              value: "2000"
+            - name: DEBUG
+              value: "false"
+            - name: CORS_ORIGINS
+              value: "http://heureum-platform:8001"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: heureum-agent
+  namespace: heureum
+spec:
+  selector:
+    app: heureum-agent
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: heureum-agent
+  namespace: heureum
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: heureum-agent
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70

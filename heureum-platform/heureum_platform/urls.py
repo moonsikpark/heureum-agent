@@ -1,0 +1,37 @@
+# Copyright (c) 2026 Heureum AI. All rights reserved.
+
+"""
+URL configuration for heureum_platform project.
+"""
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+from chat_messages.views import MessageViewSet, SessionViewSet, ToolPermissionViewSet, QuestionViewSet, SuggestedQuestionViewSet
+from proxy.views import proxy_to_agent
+
+router = DefaultRouter()
+router.register(r"messages", MessageViewSet, basename="message")
+router.register(r"permissions", ToolPermissionViewSet, basename="permission")
+router.register(r"sessions", SessionViewSet, basename="session")
+router.register(r"questions", QuestionViewSet, basename="question")
+router.register(r"suggested-questions", SuggestedQuestionViewSet, basename="suggested_question")
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/v1/", include(router.urls)),
+    # Open Responses endpoint
+    path("v1/responses", proxy_to_agent, name="responses"),
+    # Legacy endpoint (for backward compatibility)
+    path("api/v1/proxy/", proxy_to_agent, name="proxy"),
+    # Authentication
+    path("accounts/", include("allauth.urls")),
+    path("_allauth/", include("allauth.headless.urls")),
+    path("api/v1/auth/", include("accounts.urls")),
+    # Notifications
+    path("api/v1/notifications/", include("notifications.urls")),
+    # Session files (nested under sessions)
+    path("api/v1/sessions/", include("session_files.urls")),
+    # Periodic tasks
+    path("api/v1/periodic-tasks/", include("periodic_tasks.urls")),
+]

@@ -1,0 +1,67 @@
+{
+  "expo": {
+    "name": "Heureum Agent",
+    "slug": "heureum-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "heureum",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f7f5f0"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.heureum.mobile",
+      "infoPlist": {
+        "NSMotionUsageDescription": "This app uses motion sensors to enhance your experience.",
+        "NSContactsUsageDescription": "Heureum Agent needs access to your contacts to help find and manage contact information.",
+        "NSLocationWhenInUseUsageDescription": "Heureum Agent needs your location to provide location-based assistance.",
+        "NSCameraUsageDescription": "Heureum Agent needs camera access to take photos when requested."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#f7f5f0"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.heureum.mobile"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Heureum Agent needs access to your contacts to help find and manage contact information."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Heureum Agent needs your location to provide location-based assistance."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Heureum Agent needs camera access to take photos when requested."
+        }
+      ],
+      "expo-web-browser",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#f7f5f0"
+        }
+      ]
+    ]
+  }
+}

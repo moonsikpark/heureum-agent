@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opening {{ app_name }}...</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f23;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    h1 { font-size: 24px; margin-bottom: 12px; }
+    p { color: #9ca3af; font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+    .spinner {
+      width: 40px; height: 40px; margin: 0 auto 24px;
+      border: 3px solid #2d2d4e;
+      border-top-color: #4f6ef7;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #4f6ef7, #6366f1);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .fallback-link {
+      display: block;
+      color: #6b7280;
+      font-size: 13px;
+      text-decoration: underline;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="spinner" id="spinner"></div>
+    <h1>Opening {{ app_name }}...</h1>
+    <p id="auto-text">You'll be redirected to the app automatically.</p>
+
+    <div id="manual-section" class="hidden">
+      <p>If the app didn't open, tap the button below:</p>
+      <a href="{{ deep_link_url }}" class="btn">Open in {{ app_name }}</a>
+      <a href="{{ web_fallback_url }}" class="fallback-link">
+        Or continue in your browser
+      </a>
+    </div>
+  </div>
+
+  <script>
+    var deepLink = "{{ deep_link_url }}";
+
+    // Single attempt via location (iframe causes double-open on desktop)
+    window.location.href = deepLink;
+
+    // After 2.5 seconds, show manual buttons (app probably not installed)
+    setTimeout(function() {
+      document.getElementById('spinner').classList.add('hidden');
+      document.getElementById('auto-text').classList.add('hidden');
+      document.getElementById('manual-section').classList.remove('hidden');
+    }, 2500);
+  </script>
+</body>
+</html>
