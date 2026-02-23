@@ -355,6 +355,13 @@ export default function ChatPage() {
     return () => document.removeEventListener('mousedown', handler);
   }, [showUserMenu]);
 
+  /* ── Auto-focus textarea when input becomes available ── */
+  useEffect(() => {
+    if (!isLoading && !hasPrompt) {
+      textareaRef.current?.focus();
+    }
+  }, [isLoading, hasPrompt]);
+
   /* ── Auto-resize textarea ── */
   const autoResize = useCallback(() => {
     const ta = textareaRef.current;
@@ -1041,6 +1048,7 @@ export default function ChatPage() {
     setLoading(false);
     clearStreamingText();
     if (isMobile()) setSidebarExpanded(false);
+    requestAnimationFrame(() => textareaRef.current?.focus());
   };
 
   const handleSelectSession = async (session: SessionListItem) => {
@@ -1048,10 +1056,11 @@ export default function ChatPage() {
     try {
       const { messages: msgs, hasMore } = await fetchSessionMessagesPage(session.session_id, 1);
       loadSession(session.session_id, msgs, session.cwd, hasMore);
-      // Scroll to bottom after loading
+      // Scroll to bottom and focus input after loading
       requestAnimationFrame(() => {
         endRef.current?.scrollIntoView();
         isNearBottomRef.current = true;
+        textareaRef.current?.focus();
       });
     } catch { /* silently fail */ }
     if (isMobile()) setSidebarExpanded(false);
