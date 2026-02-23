@@ -15,10 +15,26 @@ pkill -f "heureum-frontend.*vite" && echo "✓ Stopped Frontend (Vite)" || echo 
 # Kill Electron processes
 pkill -f "heureum-client.*electron" && echo "✓ Stopped Electron Client" || echo "  Electron not running"
 
+# Kill MCP server process
+pkill -f "heureum-mcp.*src.main" && echo "✓ Stopped MCP Server" || echo "  MCP not running"
+
 # Alternative: Kill by port if process name doesn't work
-lsof -ti:8000 | xargs kill -9 2>/dev/null && echo "✓ Killed process on port 8000"
-lsof -ti:8001 | xargs kill -9 2>/dev/null && echo "✓ Killed process on port 8001"
-lsof -ti:5173 | xargs kill -9 2>/dev/null && echo "✓ Killed process on port 5173"
+kill_port() {
+  local port=$1
+  local pid
+  pid=$(lsof -ti:"$port" 2>/dev/null)
+  if [ -n "$pid" ]; then
+    local proc
+    proc=$(ps -p "$pid" -o comm= 2>/dev/null || echo "unknown")
+    echo "  Port $port in use by: $proc (PID $pid)"
+    kill -9 "$pid" 2>/dev/null && echo "✓ Killed process on port $port"
+  fi
+}
+
+kill_port 8000
+kill_port 8001
+kill_port 3001
+kill_port 5173
 
 echo ""
 echo "All services stopped!"

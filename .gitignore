@@ -91,6 +91,9 @@ coverage/
 *.tfstate.*
 terraform.tfvars
 
+# Deploy env
+.env.deploy
+
 # Firebase
 firebase-credentials.json
 *-firebase-adminsdk-*.json

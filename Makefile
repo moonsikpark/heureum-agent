@@ -4,7 +4,7 @@
 .PHONY: build-agent build-mcp build-platform build-frontend build-client build-all
 .PHONY: test-agent test-mcp test-platform test-frontend test-client test-all
 .PHONY: lint-frontend lint-client lint-all clean
-.PHONY: docker-build infra-init infra-plan infra-apply
+.PHONY: docker-build deploy deploy-infra deploy-aks infra-init infra-plan infra-apply
 
 # Default target
 help:
@@ -62,6 +62,9 @@ help:
 	@echo ""
 	@echo "Infrastructure:"
 	@echo "  make docker-build         - Build all Docker images locally"
+	@echo "  make deploy               - Deploy everything (Terraform + AKS)"
+	@echo "  make deploy-infra         - Deploy Terraform only"
+	@echo "  make deploy-aks           - Deploy to AKS only"
 	@echo "  make infra-init           - Initialize Terraform"
 	@echo "  make infra-plan           - Plan Terraform changes"
 	@echo "  make infra-apply          - Apply Terraform changes"
@@ -202,9 +205,20 @@ lint-all: lint-frontend lint-client
 # Docker targets
 docker-build:
 	docker build -t heureum-agent -f heureum-agent/Dockerfile heureum-agent/
+	docker build -t heureum-mcp -f heureum-mcp/Dockerfile heureum-mcp/
 	docker build -t heureum-platform -f heureum-platform/Dockerfile heureum-platform/
 	docker build -t heureum-frontend -f heureum-frontend/Dockerfile heureum-frontend/
 	@echo "✓ All Docker images built"
+
+# Deploy (reads config from heureum-infra/.env.deploy)
+deploy:
+	@./scripts/deploy.sh all
+
+deploy-infra:
+	@./scripts/deploy.sh infra
+
+deploy-aks:
+	@./scripts/deploy.sh aks
 
 # Terraform targets
 infra-init:
