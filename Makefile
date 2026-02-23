@@ -1,5 +1,6 @@
 .PHONY: help setup install install-agent install-mcp install-platform install-frontend install-client install-mobile
 .PHONY: dev-agent dev-mcp dev-platform dev-frontend dev-client dev-mobile dev-mobile-ios dev-mobile-android dev-all stop
+.PHONY: dev-celery-worker dev-celery-beat
 .PHONY: release-client-mac release-client-win
 .PHONY: build-agent build-mcp build-platform build-frontend build-client build-all
 .PHONY: test-agent test-mcp test-platform test-frontend test-client test-all
@@ -32,6 +33,8 @@ help:
 	@echo "  make dev-mobile           - Run mobile app (Expo)"
 	@echo "  make dev-mobile-ios       - Run mobile app on iOS simulator"
 	@echo "  make dev-mobile-android   - Run mobile app on Android emulator"
+	@echo "  make dev-celery-worker    - Run Celery worker"
+	@echo "  make dev-celery-beat      - Run Celery beat scheduler"
 	@echo "  make dev-all              - Run all services (requires tmux/parallel)"
 	@echo "  make stop                 - Stop all running services"
 	@echo ""
@@ -132,19 +135,29 @@ dev-mobile-ios:
 dev-mobile-android:
 	cd heureum-mobile && npx expo run:android
 
-dev-all:
+dev-celery-worker:
+	cd heureum-platform && poetry run celery -A heureum_platform worker --loglevel=info -P solo
+
+dev-celery-beat:
+	cd heureum-platform && poetry run celery -A heureum_platform beat --loglevel=info
+
+dev-all: stop
 	@echo "Starting all services... (Press Ctrl+C to stop all)"
-	@echo "Agent:    http://localhost:8000"
-	@echo "MCP:     http://localhost:3001"
-	@echo "Platform: http://localhost:8001"
-	@echo "Frontend: http://localhost:5173"
-	@echo "Client:  Electron window"
+	@echo "Agent:         http://localhost:8000"
+	@echo "MCP:           http://localhost:3001"
+	@echo "Platform:      http://localhost:8001"
+	@echo "Frontend:      http://localhost:5173"
+	@echo "Client:        Electron window"
+	@echo "Celery Worker: background"
+	@echo "Celery Beat:   background"
 	@trap 'kill 0' EXIT; \
 	(cd heureum-agent && poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000) & \
 	(cd heureum-mcp && poetry run python -m src.main) & \
 	(cd heureum-platform && poetry run python manage.py runserver 8001) & \
 	(cd heureum-frontend && pnpm dev) & \
 	(cd heureum-client && pnpm dev) & \
+	(cd heureum-platform && poetry run celery -A heureum_platform worker --loglevel=info -P solo) & \
+	(cd heureum-platform && poetry run celery -A heureum_platform beat --loglevel=info) & \
 	wait
 
 # Build targets

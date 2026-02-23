@@ -268,6 +268,22 @@ HEADLESS_FRONTEND_URLS = {
     ),
 }
 
+# Celery (task queue via Redis)
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://localhost:6379/1")
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+CELERY_TASK_SOFT_TIME_LIMIT = 300
+CELERY_TASK_TIME_LIMIT = 360
+CELERY_BEAT_SCHEDULE = {
+    "check-due-periodic-tasks": {
+        "task": "periodic_tasks.tasks.check_and_execute_due_tasks",
+        "schedule": 60.0,
+    },
+}
+
 # Social account providers
 SOCIALACCOUNT_PROVIDERS = {
     "google": {

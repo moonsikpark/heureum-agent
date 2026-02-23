@@ -25,6 +25,15 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        import warnings
+
+        warnings.warn(
+            "run_periodic_tasks_loop is deprecated. Use Celery worker + beat instead: "
+            "celery -A heureum_platform worker & celery -A heureum_platform beat",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
         interval = options["interval"]
         self.stdout.write(f"Periodic task runner started (interval={interval}s)")
 

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heureum-celery-beat
+  namespace: heureum
+  labels:
+    app: heureum-celery-beat
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: heureum-celery-beat
+  template:
+    metadata:
+      labels:
+        app: heureum-celery-beat
+    spec:
+      imagePullSecrets:
+        - name: acr-secret
+      containers:
+        - name: celery-beat
+          image: IMAGE_PLACEHOLDER
+          imagePullPolicy: Always
+          command: ["celery", "-A", "heureum_platform", "beat", "--loglevel=info"]
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: SECRET_KEY
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: DATABASE_URL
+            - name: DEBUG
+              value: "False"
+            - name: CELERY_BROKER_URL
+              value: "redis://redis:6379/1"
+            - name: REDIS_URL
+              value: "redis://redis:6379/0"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"

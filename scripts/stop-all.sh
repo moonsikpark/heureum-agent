@@ -18,6 +18,9 @@ pkill -f "heureum-client.*electron" && echo "✓ Stopped Electron Client" || ech
 # Kill MCP server process
 pkill -f "heureum-mcp.*src.main" && echo "✓ Stopped MCP Server" || echo "  MCP not running"
 
+# Kill Celery processes
+pkill -f "celery.*heureum_platform" && echo "✓ Stopped Celery worker/beat" || echo "  Celery not running"
+
 # Alternative: Kill by port if process name doesn't work
 kill_port() {
   local port=$1

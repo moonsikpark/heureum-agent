@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heureum-celery-worker
+  namespace: heureum
+  labels:
+    app: heureum-celery-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: heureum-celery-worker
+  template:
+    metadata:
+      labels:
+        app: heureum-celery-worker
+    spec:
+      imagePullSecrets:
+        - name: acr-secret
+      containers:
+        - name: celery-worker
+          image: IMAGE_PLACEHOLDER
+          imagePullPolicy: Always
+          command: ["celery", "-A", "heureum_platform", "worker", "--loglevel=info", "--concurrency=2"]
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: SECRET_KEY
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: DATABASE_URL
+            - name: AZURE_COMMUNICATION_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: AZURE_COMMUNICATION_CONNECTION_STRING
+            - name: DEFAULT_FROM_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: DEFAULT_FROM_EMAIL
+            - name: FRONTEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: FRONTEND_URL
+            - name: AZURE_STORAGE_ACCOUNT_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: AZURE_STORAGE_ACCOUNT_NAME
+            - name: AZURE_STORAGE_ACCOUNT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: AZURE_STORAGE_ACCOUNT_KEY
+            - name: AZURE_STORAGE_CONTAINER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: heureum-secrets
+                  key: AZURE_STORAGE_CONTAINER_NAME
+            - name: DEBUG
+              value: "False"
+            - name: AGENT_SERVICE_URL
+              value: "http://heureum-agent:8000"
+            - name: CELERY_BROKER_URL
+              value: "redis://redis:6379/1"
+            - name: REDIS_URL
+              value: "redis://redis:6379/0"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

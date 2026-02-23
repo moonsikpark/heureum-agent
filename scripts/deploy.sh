@@ -29,7 +29,7 @@ set +a
 
 # ── Defaults ──────────────────────────────────────────────────────────────────
 TAG="${TAG:-$(git -C "$ROOT_DIR" rev-parse HEAD)}"
-SERVICES="${SERVICES:-agent platform frontend mcp}"
+SERVICES="${SERVICES:-agent platform frontend mcp celery-worker celery-beat}"
 SKIP_BUILD="${SKIP_BUILD:-0}"
 
 # ── Subcommands ───────────────────────────────────────────────────────────────
@@ -93,14 +93,19 @@ deploy_aks() {
           docker build -t "$ACR/heureum-frontend:$TAG" \
             --build-arg VITE_API_URL=/ \
             -f "$ROOT_DIR/heureum-frontend/Dockerfile" "$ROOT_DIR/heureum-frontend/"
+          docker push "$ACR/heureum-frontend:$TAG"
+          echo "✓ Pushed heureum-frontend:${TAG:0:12}"
+          ;;
+        celery-worker|celery-beat)
+          # Celery services use the platform image — no separate build needed
           ;;
         *)
           docker build -t "$ACR/heureum-$svc:$TAG" \
             -f "$ROOT_DIR/heureum-$svc/Dockerfile" "$ROOT_DIR/heureum-$svc/"
+          docker push "$ACR/heureum-$svc:$TAG"
+          echo "✓ Pushed heureum-$svc:${TAG:0:12}"
           ;;
       esac
-      docker push "$ACR/heureum-$svc:$TAG"
-      echo "✓ Pushed heureum-$svc:${TAG:0:12}"
     done
   else
     echo "Skipping build (SKIP_BUILD=1)"
@@ -184,7 +189,17 @@ deploy_aks() {
   # --- Update image tags ---
   echo "Updating image tags..."
   for svc in $SERVICES; do
-    kubectl set image "deployment/heureum-$svc" "$svc=$ACR/heureum-$svc:$TAG" -n heureum
+    case "$svc" in
+      celery-worker)
+        kubectl set image "deployment/heureum-celery-worker" "celery-worker=$ACR/heureum-platform:$TAG" -n heureum
+        ;;
+      celery-beat)
+        kubectl set image "deployment/heureum-celery-beat" "celery-beat=$ACR/heureum-platform:$TAG" -n heureum
+        ;;
+      *)
+        kubectl set image "deployment/heureum-$svc" "$svc=$ACR/heureum-$svc:$TAG" -n heureum
+        ;;
+    esac
   done
   if echo "$SERVICES" | grep -qw platform; then
     kubectl set image deployment/heureum-platform "migrate=$ACR/heureum-platform:$TAG" -n heureum

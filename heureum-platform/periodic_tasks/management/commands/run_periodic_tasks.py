@@ -72,6 +72,15 @@ class Command(BaseCommand):
     help = "Execute due periodic tasks by calling the agent service."
 
     def handle(self, *args, **options):
+        import warnings
+
+        warnings.warn(
+            "run_periodic_tasks is deprecated. Use Celery worker + beat instead: "
+            "celery -A heureum_platform worker & celery -A heureum_platform beat",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
         now = timezone.now()
         due_tasks = PeriodicTask.objects.filter(
             status="active",
